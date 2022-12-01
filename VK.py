@@ -1,5 +1,4 @@
 import requests
-from pprint import pprint
 import datetime
 
 class Vk_id:
@@ -25,9 +24,10 @@ class Vk_id:
         else:
             return screen_result
 
+
     def photo_id(self, screen_result):
         id = self.screen_id(screen_result)
-        print(f'айдишник - {id}')
+        print(f'(id) - {id} | Никнейм: @{screen_result} \n')
         params = {
                     'access_token': self.token_str,
                     'owner_id': id,
@@ -82,18 +82,18 @@ class Vk_id:
             x_size = dict_all[x_date][2]
 
             date_name = datetime.datetime.fromtimestamp(x_date)
-            x_date_result = date_name.strftime("%Y-%m-%d_%H:%M:%S")
+            x_date_result = date_name.strftime("%Y_%m_%d__%Hh.%Mm.%Ss")
 
             if x_like not in list_likes_unikal:
                 list_likes_unikal.append(x_like)
                 dict_name[x_date_result] = [f'{x_like}.jpg', x_size, x_link]
 
             else:
-                dict_name[x_date_result] = [f'{x_like}_[{x_date_result}].jpg', x_size, x_link]
+                dict_name[x_date_result] = [f'{x_like}._{x_date_result}.jpg', x_size, x_link]
 
-        list_all.append(dict_name)
-        # pprint(list_all)
-        return list_all
+        # list_all.append(dict_name)
+        # print(dict_name)
+        return dict_name
 
 
     def name_result (self, screen_result):
