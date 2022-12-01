@@ -1,5 +1,6 @@
 import requests
 import datetime
+from pprint import pprint
 
 class Vk_id:
 
@@ -8,6 +9,7 @@ class Vk_id:
         self.token_str = token
         self.url_get_id = 'https://api.vk.com/method/users.get'
         self.url_get_photos = 'https://api.vk.com/method/photos.get'
+        self.url_get = 'https://cloud-api.yandex.net/v1/disk/resources/upload'
 
 
     def screen_id(self, screen_result):
@@ -91,28 +93,27 @@ class Vk_id:
             else:
                 dict_name[x_date_result] = [f'{x_like}._{x_date_result}.jpg', x_size, x_link]
 
-        # list_all.append(dict_name)
-        # print(dict_name)
         return dict_name
 
 
+
     def name_result (self, screen_result):
-        result_list = []
+        info_files = self.date_like_name_all(screen_result)
+# *************
         result_dict = {}
 
-        y = self.date_like_name_all(screen_result)
-        for temp in y:
-            for temp2 in temp:
-                result_dict[temp[temp2][0]] = 'file_name'
-                result_dict[temp[temp2][1]] = 'max size'
+        for temp in info_files:
+            result_dict[info_files[temp][0]] = 'file_name'
+            result_dict[info_files[temp][1]] = 'max size   |'
 
-        result_list.append(result_dict)
-        print(result_list)
-        return result_list
+        with open('files_info.txt', 'w') as a:
+            a.writelines(f'Информация по файлам, записанным на диск: \n {result_dict}')
+
+# **********
+        return info_files
 
 
 
-# Второй комит
 
 
 
